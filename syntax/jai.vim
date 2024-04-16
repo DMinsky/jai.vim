@@ -64,11 +64,15 @@ syntax keyword jaiInitializerOf initializer_of
 syntax keyword jaiAutoCast xx
 
 syntax match jaiFunction "\v<\h\w*>\ze\_s*:[:=]%(\_s*inline)?\_s*\(%(\.\{|\_[^\{;]){-}\)%(\.\{|\_[^{;])*\{"
+
+" NOTE(dminsky): I've disabled belowed. I don't like variables highligthing
+"
 "The lookahead prevents accidental matches with a function
-syntax match jaiConstantDeclaration "\v<\h\w*%(\\\s*\w+)*>\ze%(,\_s*<\h\w*%(\\\s*\w+)*>)*\_s*:\_[^{;:="]{-}:%(\.\{|\_[^{;:])*;" display
+" syntax match jaiConstantDeclaration "\v<\h\w*%(\\\s*\w+)*>\ze%(,\_s*<\h\w*%(\\\s*\w+)*>)*\_s*:\_[^{;:="]{-}:%(\.\{|\_[^{;:])*;" display
 "The lookahead prevents accidental matches with a constant declaration or a function
-syntax match jaiVariableDeclaration "\v%(%([:\]$]|for%(\_s*\<)?)\_s*)@<!<\h\w*%(\\\s*\w+)*>\ze%(,\_s*<\h\w*%(\\\s*\w+)*>)*\_s*:\_[^:=,"]{-}[=,);]" display
-syntax match jaiForVariableDeclaration "\v%(for%(\_s*\<)?%(\_s*<\h\w*%(\\\s*\w+)*>,)*\_s*)@<=<\h\w*%(\\\s*\w+)*>\ze%(,\_s*<\h\w*%(\\\s*\w+)*>)*\_s*:" display
+" syntax match jaiVariableDeclaration "\v%(%([:\]$]|for%(\_s*\<)?)\_s*)@<!<\h\w*%(\\\s*\w+)*>\ze%(,\_s*<\h\w*%(\\\s*\w+)*>)*\_s*:\_[^:=,"]{-}[=,);]" display
+" syntax match jaiForVariableDeclaration "\v%(for%(\_s*\<)?%(\_s*<\h\w*%(\\\s*\w+)*>,)*\_s*)@<=<\h\w*%(\\\s*\w+)*>\ze%(,\_s*<\h\w*%(\\\s*\w+)*>)*\_s*:" display
+
 syntax match jaiTagNote "@\<\w\+\>" display
 
 syntax match jaiClass "\v<[A-Z]\w+>" display
@@ -94,8 +98,8 @@ syntax region jaiBlockComment start=/\v\/\*/ end=/\v\*\// contains=jaiBlockComme
 " Maybe scan back to find the beginning of block comments?
 syntax sync minlines=200
 
-
-highlight def link jaiIt Identifier
+" NOTE(dminsky) changed jaiIt from something to Keyword
+highlight def link jaiIt Keyword
 highlight def link jaiUsing Keyword
 highlight def link jaiNew Keyword
 highlight def link jaiCast Keyword
@@ -121,9 +125,10 @@ highlight def link jaiUnion Structure
 highlight def link jaiEnum Structure
 
 highlight def link jaiFunction Function
-highlight def link jaiVariableDeclaration Identifier
-highlight def link jaiForVariableDeclaration Identifier
-highlight def link jaiConstantDeclaration Constant
+" NOTE(dminsky): I don't like highlighting of variables
+" highlight def link jaiVariableDeclaration Identifier
+" highlight def link jaiForVariableDeclaration Identifier
+" highlight def link jaiConstantDeclaration Constant
 
 highlight def link jaiDirective PreProc
 highlight def link jaiIf Conditional
